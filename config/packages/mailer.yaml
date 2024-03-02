@@ -1,0 +1,3 @@
+framework:
+    mailer:
+        dsn: 'smtp://marweng.touati@gmail.com:@@metallica1R@smtp.gmail.com:465?encryption=ssl'
