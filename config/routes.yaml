@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+search_Events:
+  path: /searchEvents
+  controller: App\Controller\EventController::searchEvents
+  methods: [GET]

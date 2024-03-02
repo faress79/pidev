@@ -1,0 +1,91 @@
+{% extends 'frontEvent.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <h1>Event index</h1>
+    <div class="row mb-3">
+        <div class="col">
+            <input type="text" class="form-control" id="liveSearch" autocomplete="off" placeholder="Search events">
+        </div>
+        <div class="col-auto">
+            <button id="searchButton" class="btn btn-success">Search</button>
+        </div>
+    </div>
+    <div class="row" id="eventCards">
+        {% for event in events %}
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <img src="{{ asset('img/' ~ event.image) }}" class="card-img-top" alt="Event Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.nomEvent }}</h5>
+                        <p class="card-text">{{ event.dateEvent ? event.dateEvent|date('Y-m-d') : '' }}</p>
+                        <p class="card-text">{{ event.adressEvent }}</p>
+                        <p class="card-text">{{ event.description }}</p>
+                        <a href="{{ path('app_event_show_front', {'id': event.id}) }}" class="btn btn-primary">Show</a>
+                        
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col">
+                <p class="text-center">No records found</p>
+            </div>
+        {% endfor %}
+    </div>
+    
+{% endblock %}
+
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+       $(document).ready(function() {
+    $('#searchButton').click(function() {
+        var query = $('#liveSearch').val();
+        $.ajax({
+            url: '{{ path('search_Events') }}',
+            type: 'GET',
+            data: { query: query },
+            success: function(response) {
+                if (response.length > 0) {
+                    $('#eventCards').empty(); // Clear existing event cards
+                    $.each(response, function(index, event) {
+    var id = event.id || 'N/A';
+    var nomEvent = event.nom_event || 'N/A';
+    var date = event.date_event ? new Date(event.date_event.date) : 'N/A'; 
+    var formattedDate = date ? date.toLocaleDateString('en-US') : 'N/A';
+    var adress = event.adress_event || 'N/A';
+    var description = event.description || 'N/A';
+    var imageSrc = '{{ asset('img/') }}' + event.image; // Construct image source
+    var showUrl = '{{ path('app_event_show_front', {'id': 'event_ID'}) }}'.replace('event_ID', event.id); // Generate the show URL in Twig
+    var card = `
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img src="${imageSrc}" class="card-img-top" alt="Event Image">
+                <div class="card-body">
+                    <h5 class="card-title">${nomEvent}</h5>
+                    <p class="card-text">Date: ${formattedDate}</p>
+                    <p class="card-text">Address: ${adress}</p>
+                    <p class="card-text">Description: ${description}</p>
+                    <a href="${showUrl}" class="btn btn-info btn-sm me-1">Show</a> 
+                </div>
+            </div>
+        </div>`;
+    $('#eventCards').append(card); // Append the card to the container
+});
+
+                } else {
+                    $('#eventCards').html('<div class="col"><p class="text-center">No records found</p></div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX request failed:', error);
+            }
+        });
+    });
+});
+
+
+    </script>
+{% endblock %}
