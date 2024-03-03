@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class UserType extends AbstractType
+class editUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -26,18 +26,8 @@ class UserType extends AbstractType
                 'label' => 'Email',
                 'required' => true,
             ])
-            ->add('cin', TextType::class, [
-                'label' => 'cin',
-                'required' => true,
-            ])
-            ->add('nom', TextType::class, [
-                'label' => 'nom',
-                'required' => true,
-            ])
-            ->add('prenom', TextType::class, [
-                'label' => 'prenom',
-                'required' => true,
-            ])
+          
+            
             ->add('password', PasswordType::class, [
                 'label' => 'Password',
                 'required' => true,
@@ -53,16 +43,16 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-           ->add('roles', CollectionType::class, [
-            'entry_type' => TextType::class,
-            'entry_options' => [
-                'attr' => ['class' => 'form-control'],
-            ],
-            'allow_add' => true,
-            'allow_delete' => true,
-            'prototype' => true,
-            'by_reference' => false,
-        ]);
+            ->add('roles', CollectionType::class, [
+                'entry_type' => TextType::class,
+                'entry_options' => [
+                    'attr' => ['class' => 'form-control'],
+                ],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'by_reference' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

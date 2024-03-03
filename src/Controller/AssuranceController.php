@@ -26,10 +26,10 @@ class AssuranceController extends AbstractController
     {
         return $this->render('index.html.twig');
     }
-    #[Route('/front')]
+    #[Route('/front',name :'front')]
     public function front(AssuranceRepository $assuranceRepository): Response
     {
-        return $this->render('front.html.twig');
+        return $this->render('user/front.html.twig');
     }
     #[Route('/new', name: 'app_assurance_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response

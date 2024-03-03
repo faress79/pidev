@@ -306,6 +306,12 @@
                             <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">email</h6>
                             </th>
+                            <th class="border-bottom-0">
+                                <h6 class="fw-semibold mb-0">nom</h6>
+                            </th>
+                            <th class="border-bottom-0">
+                                <h6 class="fw-semibold mb-0">prenom</h6>
+                            </th>
                              <th class="border-bottom-0">
                                 <h6 class="fw-semibold mb-0">Role</h6>
                             </th>
@@ -319,12 +325,11 @@
                         {% for user in b %}   
                         <tr>
                             <td>{{user.id_user}}</td>
-                            <td>{{user.cin}}</td>
-                            <td>{{user.nom}}</td>
-                            <td>{{user.prenom}}</td>
                             <td>{{user.username}}</td>
                             <td>{{user.email}}</td>
-                            <td>{{ user.Roles|join(', ') }}</td>
+                            <td>{{user.nom}}</td>
+                            <td>{{user.prenom}}</td>
+                           <td>{{ user.createdAt|date('Y-m-d') }}</td>
                             <td>
                                 <a href="{{ path('edit_user', {'id': user.id_user}) }}" class="btn btn-primary">Modifier</a>
                             </td>
