@@ -268,7 +268,7 @@ class ContratController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_contrat_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_contrat_editf', methods: ['GET', 'POST'])]
     public function edit(Request $request, Contrat $contrat, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContratType::class, $contrat);
@@ -277,7 +277,7 @@ class ContratController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_contrat_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_contrat_indexf', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('contrat/edit.html.twig', [
@@ -286,7 +286,7 @@ class ContratController extends AbstractController
         ]);
     }
 
-    #[Route('/front/{id}/edit', name: 'app_contrat_editf', methods: ['GET', 'POST'])]
+    #[Route('/front/{id}/edit', name: 'ahamza', methods: ['GET', 'POST'])]
     public function editff(Request $request, Contrat $contrat, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ContratType::class, $contrat);

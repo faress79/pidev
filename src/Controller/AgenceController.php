@@ -54,12 +54,12 @@ class AgenceController extends AbstractController
     public function envoyerMessageWhatsApp($agence, $email, $date): Response
     {
         require_once __DIR__ . '/../../vendor/autoload.php'; // Make sure the path is correct
-        $ultramsg_token = "4qoxx8gbwgv07b0k"; // Your Ultramsg token
-        $instance_id = "instance79872"; // Your Ultramsg instance ID
+        $ultramsg_token = "xlvw4dz9wcdxk5pi"; // Your Ultramsg token
+        $instance_id = "instance69768"; // Your Ultramsg instance ID
     
         $client = new WhatsAppApi($ultramsg_token, $instance_id);
     
-        $to = "+21640994876"; // Recipient's phone number
+        $to = "+21622305479"; // Recipient's phone number
         $body = "Bonjour,\n\nNous vous informons qu'un nouveau agence a été ajouté dans notre système. Voici les détails :\n\nUtilisateur  : $agence\nemail : $email\nphone number : $date\n\nVeuillez prendre les mesures nécessaires pour suivi les mise a jour.\n\nCordialement.";
     
         // Send a text message
