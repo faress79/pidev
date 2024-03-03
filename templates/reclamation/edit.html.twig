@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Reclamation{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        body {
+            background-color: #ffffff; /* Set background color to white */
+        }
+        .reclamation-form {
+            /* Add custom styles for form */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .control-label {
+            font-weight: bold;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .text-danger {
+            color: #dc3545; /* Set error message color */
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+{% block body %}
+    <h1>Edit Reclamation</h1>
+
+    {{ include('reclamation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+{% endblock %}
+{% endblock %}

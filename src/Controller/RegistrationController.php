@@ -171,7 +171,7 @@ public function edituser(ManagerRegistry $doctrine, Request $request, $id): Resp
         $entityManager->flush();
 
         // Redirect to the named route 'back'
-        return $this->redirectToRoute('user/back');
+        return $this->redirectToRoute('back');
     }
 
     return $this->render('user/edituser.html.twig', [

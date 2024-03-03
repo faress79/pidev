@@ -122,7 +122,7 @@
         <label for="chk" aria-hidden="true">Sign up</label>
          {{ form_start(passForm) }}
          <div class="form-group">
-        {{ form_widget(passForm.password, {'attr': {'class': 'form-control', 'placeholder': 'email'}}) }}
+        {{ form_widget(passForm.password, {'attr': {'class': 'form-control', 'placeholder': 'password'}}) }}
     </div>
     {{ form_errors(passForm.password,{'attr':{'class':'text-danger'}}) }}
        <button type="submit" id="submit" class="btn btn-primary" >Confirm</button>

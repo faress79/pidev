@@ -31,6 +31,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(name: "id_user", type: "integer")]
     private ?int $id_user = null;
 
+
+    #[ORM\OneToMany(targetEntity: Reclamation::class, mappedBy: 'user')]
+    private Collection $reclamations;
+    
+  
+
    
 
     #[ORM\Column(length: 255)]
@@ -51,27 +57,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $username = null;
     
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Password cannot be empty")
-     * @Assert\Length(
-     *      min=8,
-     *      minMessage="Password must be at least {{ limit }} characters long"
-     * )
-     * @Assert\Regex(
-     *      pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/",
-     *      message="Your password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-     * )
-     * @var string The hashed password
-     */
+
     #[ORM\Column]
     private ?string $password = null;
     
-      /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Email address cannot be empty")
-     * @Assert\Email(message="The email '{{ value }}' is not a valid email.")
-     */
+    
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -108,6 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->orders = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
+        $this->reclamations = new ArrayCollection();
     }
 
    
@@ -229,6 +220,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $is_verified): self
     {
         $this->is_verified = $is_verified;
+
+        return $this;
+    }
+      /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+    public function addReclamation(Reclamation $reclamation): static
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations->add($reclamation);
+            $reclamation->setuser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): static
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getuser() === $this) {
+                $reclamation->setuser(null);
+            }
+        }
 
         return $this;
     }

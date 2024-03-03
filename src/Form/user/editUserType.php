@@ -28,21 +28,7 @@ class editUserType extends AbstractType
             ])
           
             
-            ->add('password', PasswordType::class, [
-                'label' => 'Password',
-                'required' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters long',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+            
             ->add('roles', CollectionType::class, [
                 'entry_type' => TextType::class,
                 'entry_options' => [

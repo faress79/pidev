@@ -1,6 +1,6 @@
 
 
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Modernize Free{% endblock %}
 {% block body %}
@@ -220,15 +220,7 @@
 </div>
 
 
-<div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
-    {% if form_errors(form.password) %}
-        <div class="alert alert-danger" role="alert">
-            {{ form_errors(form.password) }}
-        </div>
-    {% endif %}
-</div>
+
 
 <div class="mb-3">
     <label for="exampleInputUsername1" class="form-label">Username</label>
