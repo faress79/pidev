@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Assurance{% endblock %}
+
+{% block body %}
+    <h1>Edit Assurance</h1>
+
+    {{ include('assurance/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_assurance_index') }}">back to list</a>
+
+    {{ include('assurance/_delete_form.html.twig') }}
+{% endblock %}
