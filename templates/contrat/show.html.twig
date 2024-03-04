@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contrat
+{% endblock %}
+
+{% block body %}
+	<h1>Contrat</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ contrat.id }}</td>
+			</tr>
+			<tr>
+				<th>prix Contrat</th>
+				<td>{{ contrat.prixContrat }}</td>
+			</tr>
+			<tr>
+				<th>DateEffet</th>
+				<td>{{ contrat.dateEffet ? contrat.dateEffet|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>TypeContrat</th>
+				<td>{{ contrat.typeContrat }}</td>
+			</tr>
+
+			<tr>
+				<th>Agence</th>
+				<td>{{ contrat.getAgence().getNom() }}</td>
+			</tr>
+			<tr>
+				<th>User Name</th>
+				<td>{{ contrat.getUtilisateur().getNom() }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_contrat_index') }}">back to list</a>
+
+	{# <a href="{{ path('app_contrat_edit', {'id': contrat.id}) }}">edit</a> #}
+
+{% endblock %}

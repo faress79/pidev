@@ -3,31 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use App\Entity\Trait\CreatedAtTrait;
-
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-
-use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
-
-
-
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity('email', message: 'This email is already in use.')]
-#[UniqueEntity('username', message: 'This username is already in use.')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
-
+#[ORM\Table(name: '`user`')]
+class User
 {
-   
     #[ORM\Id]
     #[ORM\GeneratedValue]
+<<<<<<< HEAD
     #[ORM\Column(name: "id_user", type: "integer")]
     private ?int $id_user = null;
 
@@ -38,22 +24,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
   
 
    
+=======
+    #[ORM\Column]
+    private ?int $id = null;
+>>>>>>> agence
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
-       /**
-     * @Assert\NotBlank(message=" username doit etre non vide")
-     * @Assert\Length(
-     *      min = 5,
-     *      minMessage=" Entrer un username au mini de 5 caracteres"
-     *
-     *     )
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\OneToMany(targetEntity: Contrat::class, mappedBy: 'utilisateur')]
+    private Collection $contrats;
 
+<<<<<<< HEAD
     #[ORM\Column(length: 255)]
     private ?string $username = null;
     
@@ -103,10 +85,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->orders = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
         $this->reclamations = new ArrayCollection();
+=======
+    public function __construct()
+    {
+        $this->contrats = new ArrayCollection();
+>>>>>>> agence
     }
 
-   
-
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getNom(): ?string
     {
@@ -120,112 +109,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-   /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
     /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
-     *
-     * @see UserInterface
+     * @return Collection<int, Contrat>
      */
-    public function getSalt(): ?string
+    public function getContrats(): Collection
     {
-        return null;
+        return $this->contrats;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function eraseCredentials(): void
+    public function addContrat(Contrat $contrat): static
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
-    }
-
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
+        if (!$this->contrats->contains($contrat)) {
+            $this->contrats->add($contrat);
+            $contrat->setUtilisateur($this);
+        }
 
         return $this;
     }
 
-    public function getRoles(): array
+    public function removeContrat(Contrat $contrat): static
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
+        if ($this->contrats->removeElement($contrat)) {
+            // set the owning side to null (unless already changed)
+            if ($contrat->getUtilisateur() === $this) {
+                $contrat->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
-    public function getResetToken(): ?string
+    public function __toString(): string
     {
-        return $this->resetToken;
-    }
-
-    public function setResetToken(?string $resetToken): self
-    {
-        $this->resetToken = $resetToken;
-
-        return $this;
-    }
-    public function getIsVerified(): ?bool
-    {
-        return $this->is_verified;
-    }
-
-    public function setIsVerified(bool $is_verified): self
-    {
-        $this->is_verified = $is_verified;
-
-        return $this;
+        return (string) $this->nom;
     }
       /**
      * @return Collection<int, Reclamation>

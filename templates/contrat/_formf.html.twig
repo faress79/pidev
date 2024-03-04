@@ -1,0 +1,58 @@
+{{ form_start(form, {'attr': {novalidate: 'novalidate'}}) }}
+
+<div class="form-group">
+	{{ form_label(form.dateEffet, 'Date d\'effet') }}
+    {{ form_widget(form.dateEffet, {'attr': {'class': 'form-control'}}) }}
+   
+</div>
+
+<div class="form-group">
+    {{ form_label(form.typeContrat, 'Type de Contrat') }}
+    {{ form_widget(form.typeContrat, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.typeContrat) %}
+        <div class="invalid-feedback">
+            	{{ form_errors(form.typeContrat,{'class':'text-danger'}) }}
+
+        </div>
+    {% endif %}
+</div>
+
+{# Uncomment if needed
+<div class="form-group">
+    {{ form_label(form.agence, 'Agence') }}
+    {{ form_widget(form.agence, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.agence) %}
+        <div class="invalid-feedback">
+            {{ form_errors(form.agence)|join(', ') }}
+        </div>
+    {% endif %}
+</div>
+-->#}
+
+<div class="form-group">
+    {{ form_label(form.prixContrat, 'Prix Contrat') }}
+    {{ form_widget(form.prixContrat, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.prixContrat) %}
+        <div class="invalid-feedback">
+    	{{ form_errors(form.prixContrat,{'class':'text-danger'}) }}
+        </div>
+    {% endif %}
+
+</div>
+
+<div class="form-group">
+    {{ form_label(form.utilisateur, 'Utilisateur') }}
+    {{ form_widget(form.utilisateur, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.utilisateur) %}
+        <div class="invalid-feedback">
+        	{{ form_errors(form.utilisateur,{'class':'text-danger'}) }}
+        </div>
+
+    {% endif %}
+</div>
+
+<div class="form-group">
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+</div>
+
+{{ form_end(form) }}

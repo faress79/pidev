@@ -1,0 +1,42 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Agence index{% endblock %}
+
+{% block body %}
+    <h1>Agence index</h1>
+
+    <div class="row">
+        {% for agence in agences %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ asset('img/' ~ agence.image) }}" class="card-img-top" alt="{{ agence.image }}" width="200" height="200">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ agence.nom }}</h5>
+                        <p class="card-text">Tel: {{ agence.tel }}</p>
+                        <p class="card-text">Address: {{ agence.address }}</p>
+                        <p class="card-text">Email: {{ agence.email }}</p>
+
+                        <a href="{{ path('app_agence_showf', {'id': agence.id}) }}" class="btn btn-success rounded-pill py-2 px-4">
+                            <i class="fa fa-eye">{{ agence.nbVue }}</i>
+                        </a>
+                        
+                        <a href="{{ path('app_agence_edit', {'id': agence.id}) }}" class="btn btn-secondary">Edit</a>
+                        <a href="{{ path('app_contrat_newf', {'agenceId': agence.id}) }}" class="btn btn-success">Create new</a>
+
+                        <a href="{{ path('app_agence_like', {'id': agence.id}) }}" class="btn btn-success rounded-pill py-2 px-4">
+                            <i class="fa fa-thumbs-up"></i> Like {{ agence.likes }}
+                        </a>
+
+                        <a href="{{ path('app_agence_dislike', {'id': agence.id}) }}" class="btn btn-danger rounded-pill py-2 px-4">
+                            <i class="fa fa-thumbs-down"></i> Dislike {{ agence.dislikes }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-md-12">
+                <p>No records found</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

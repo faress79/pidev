@@ -1,0 +1,22 @@
+{# templates/contrat/pdf_all.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Contrats PDF</title>
+</head>
+<body>
+    <h1>All Contrats Information</h1>
+
+    {% for contrat in contrats %}
+        <div>
+            <p>Date Effet: {{ contrat.dateEffet|date('Y-m-d') }}</p>
+            <p>Type Contrat: {{ contrat.typeContrat }}</p>
+            <p>Prix Contrat: {{ contrat.prixContrat }}</p>
+            <p>Agence: {{ contrat.agence.nom }}</p>
+            <p>Utilisateur: {{ contrat.utilisateur.nom }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+</body>
+</html>
