@@ -37,9 +37,12 @@ class Contrat
     #[ORM\ManyToOne(inversedBy: 'agence')]
     private ?Agence $agence = null;
 
-    #[Assert\NotBlank(message: 'L4 UTILISATEUR ne doit pas être vide.')]
-    #[ORM\ManyToOne(inversedBy: 'contrats')]
-    private ?User $utilisateur = null;
+    #[Assert\NotBlank(message: 'L\'UTILISATEUR ne doit pas être vide.')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'contrats')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id_user')]
+    private ?User $user = null;
+
+
 
 
     public function getId(): ?int

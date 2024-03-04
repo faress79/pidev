@@ -60,7 +60,7 @@ class AgenceController extends AbstractController
         $client = new WhatsAppApi($ultramsg_token, $instance_id);
     
         $to = "+21622305479"; // Recipient's phone number
-        $body = "Bonjour,\n\nNous vous informons qu'un nouveau agence a été ajouté dans notre système. Voici les détails :\n\nUtilisateur  : $agence\nemail : $email\nphone number : $date\n\nVeuillez prendre les mesures nécessaires pour suivi les mise a jour.\n\nCordialement.";
+        $body = "Bonjour,\n\nNous vous informons qu'un nouveau agence a été ajouté dans notre système. Voici les détails :\n\nagence  : $agence\nemail : $email\nphone number : $date\n\nVeuillez prendre les mesures nécessaires pour suivi les mise a jour.\n\nCordialement.";
     
         // Send a text message
         $api = $client->sendChatMessage($to, $body);
